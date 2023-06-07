@@ -6,6 +6,12 @@ public struct Folder: Comparable, Hashable {
     public let path: String
     public var files: [Int: [File]] = [:]
     
+    public init(id: Int, name: String, path: String) {
+        self.id = id
+        self.name = name
+        self.path = path
+    }
+    
     // Populate the files dictionary for a given page
     
     public mutating func getFiles(

@@ -7,6 +7,10 @@ public struct Chomik {
     public var ticks: String = ""
     public var isLoggedIn: Bool = false
     
+    public init(name: String) {
+        self.name = name
+    }
+    
     // Login to this hamster
     
     public mutating func login(password: String) async throws {
