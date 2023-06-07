@@ -1,0 +1,15 @@
+enum ChomikAPI: String {
+    case base = "https://chomikuj.pl/"
+    case copy = "https://chomikuj.pl/action/FileDetails/CopyFileAction"
+    case delete = "https://chomikuj.pl/action/FileDetails/DeleteFileAction"
+    case deleteFolder = "https://chomikuj.pl/action/FolderOptions/DeleteFolderAction"
+    case download = "https://chomikuj.pl/action/License/Download"
+    case files = "https://chomikuj.pl/action/Files/FilesList"
+    case folders = "https://chomikuj.pl/action/tree/GetFolderChildrenHtml"
+    case login = "https://chomikuj.pl/action/login/login/login"
+    case move = "https://chomikuj.pl/action/FileDetails/MoveFileAction"
+    case newFolder = "https://chomikuj.pl/action/FolderOptions/NewFolderAction"
+    case rename = "https://chomikuj.pl/action/FileDetails/EditNameAndDescAction"
+    case search = "https://chomikuj.pl/action/SearchFiles"
+    case upload = "https://chomikuj.pl/action/Upload/GetUrl"
+}
