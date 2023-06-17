@@ -19,12 +19,7 @@ public struct Mover {
         request.setValue("close", forHTTPHeaderField: "Connection")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
-        let data: Data = try await request.send()
-        let response: ActionResponse = try JSONDecoder().decode(ActionResponse.self, from: data)
-        
-        guard response.isSuccess else {
-            throw "Failed to copy \(file.name) (\(file.id)) to \(dst.name) (\(dst.id))"
-        }
+        _ = try await request.send(throwing: "Failed to copy \(file.name) (\(file.id)) to \(dst.name) (\(dst.id))")
     }
     
     public static func move(
@@ -45,12 +40,7 @@ public struct Mover {
         request.setValue("close", forHTTPHeaderField: "Connection")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
-        let data: Data = try await request.send()
-        let response: ActionResponse = try JSONDecoder().decode(ActionResponse.self, from: data)
-        
-        guard response.isSuccess else {
-            throw "Failed to move \(file.name) (\(file.id)) to \(dst.name) (\(dst.id))"
-        }
+        _ = try await request.send(throwing: "Failed to move \(file.name) (\(file.id)) to \(dst.name) (\(dst.id))")
     }
     
     public static func rename(
@@ -71,11 +61,6 @@ public struct Mover {
         request.setValue("close", forHTTPHeaderField: "Connection")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
-        let data: Data = try await request.send()
-        let response: ActionResponse = try JSONDecoder().decode(ActionResponse.self, from: data)
-        
-        guard response.isSuccess else {
-            throw "Failed to move \(file.name) (\(file.id)) to \(newName)"
-        }
+        _ = try await request.send(throwing: "Failed to move \(file.name) (\(file.id)) to \(newName)")
     }
 }

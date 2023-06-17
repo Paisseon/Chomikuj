@@ -23,7 +23,7 @@ public struct Uploader {
         request.setValue("application/json, text/javascript, */*; q=0.01", forHTTPHeaderField: "Accept")
         request.setValue("multipart/form-data; boundary=----WebKitFormBoundary13bNeybuFGg8rkAB", forHTTPHeaderField: "Content-Type")
         
-        _ = try await request.send()
+        _ = try await request.send(throwing: "Failed to upload \(fileName)")
     }
     
     public static func newFolder(
@@ -42,7 +42,7 @@ public struct Uploader {
         request.httpBody = "ChomikName=\(chomik.name)&FolderName=\(name)&FolderId=\(parent.id)&AdultContent=false&NewFolderSetPassword=false&__RequestVerificationToken=\(chomik.token)".data(using: .utf8)
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
-        _ = try await request.send()
+        _ = try await request.send(throwing: "Failed to create folder \(name)")
     }
     
     private static func getMultipart(

@@ -4,7 +4,7 @@ public struct Folder: Comparable, Hashable {
     public let id: Int
     public let name: String
     public let path: String
-    public var files: [Int: [File]] = [:]
+    public private(set) var files: [Int: [File]] = [:]
     
     public init(id: Int, name: String, path: String) {
         self.id = id
@@ -34,6 +34,10 @@ public struct Folder: Comparable, Hashable {
         request.setValue("close", forHTTPHeaderField: "Connection")
         request.setValue(ChomikAPI.base.rawValue + path, forHTTPHeaderField: "Referer")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
+        
+        if !chomik.cookie.isEmpty {
+            request.setValue(chomik.cookie, forHTTPHeaderField: "Cookie")
+        }
 
         let data: Data = try await request.send()
         let str: String = .init(decoding: data, as: UTF8.self)

@@ -19,6 +19,10 @@ struct Page {
         request.setValue(folder.path, forHTTPHeaderField: "Referer")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
+        if !chomik.cookie.isEmpty {
+            request.setValue(chomik.cookie, forHTTPHeaderField: "Cookie")
+        }
+        
         html = String(decoding: (try? await request.send()) ?? Data(), as: UTF8.self)
     }
     

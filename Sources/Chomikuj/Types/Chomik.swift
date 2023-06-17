@@ -2,10 +2,11 @@ import Foundation
 
 public struct Chomik {
     public let name: String
-    public var folders: [Folder] = []
-    public var token: String = ""
-    public var ticks: String = ""
-    public var isLoggedIn: Bool = false
+    public var cookie: String = ""
+    public private(set) var folders: [Folder] = []
+    public private(set) var token: String = ""
+    public private(set) var ticks: String = ""
+    public private(set) var isLoggedIn: Bool = false
     
     public init(name: String) {
         self.name = name
@@ -23,9 +24,9 @@ public struct Chomik {
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
         let data: Data = try await request.send()
-        let response: ActionResponse = try JSONDecoder().decode(ActionResponse.self, from: data)
+        let response: LoginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
         
-        guard response.isSuccess else {
+        guard response.data["Status"] == 0 else {
             throw "Login failed for account \(name)"
         }
         

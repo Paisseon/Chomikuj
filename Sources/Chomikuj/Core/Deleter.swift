@@ -19,12 +19,7 @@ public struct Deleter {
         request.setValue(folder.path, forHTTPHeaderField: "Referer")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
-        let data: Data = try await request.send()
-        let response: ActionResponse = try JSONDecoder().decode(ActionResponse.self, from: data)
-        
-        guard response.isSuccess else {
-            throw "Failed to delete \(file.name) (\(file.id))"
-        }
+        _ = try await request.send(throwing: "Failed to delete \(file.name) (\(file.id))")
     }
     
     public static func deleteFolder(
@@ -42,11 +37,6 @@ public struct Deleter {
         request.httpBody = "ChomikName=\(chomik.name)&FolderId=\(folder.id)&__RequestVerificationToken=\(chomik.token)".data(using: .utf8)
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         
-        let data: Data = try await request.send()
-        let response: ActionResponse = try JSONDecoder().decode(ActionResponse.self, from: data)
-        
-        guard response.isSuccess else {
-            throw "Failed to delete \(folder.name) (\(folder.id))"
-        }
+        _ = try await request.send(throwing: "Failed to delete \(folder.name) (\(folder.id))")
     }
 }
